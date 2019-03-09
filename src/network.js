@@ -75,7 +75,11 @@ async function getPokemonWithID(id) {
               return acc;
             }
           }),
-        "Base Experience": data["base_experience"]
+        "Base Experience": data["base_experience"],
+        image: data["sprites"] && data["sprites"]["front_default"],
+        name: data["name"],
+        Height: data["height"],
+        Weight: data["weight"]
       };
     } else {
       return { error: "Error in getting Pokemon" };
@@ -93,7 +97,13 @@ async function getBerryWithID(id) {
     if (response.status >= 200 && response.status < 300) {
       return {
         Item: data["item"] && data["item"]["name"],
-        "Growth Time": data["growth_time"]
+        "Growth Time": data["growth_time"],
+        "Max Harvest": data["max_harvest"],
+        name: data["name"],
+        "Natural Gift Power": data["natural_gift_power"],
+        Size: data["size"],
+        Smoothness: data["smoothness"],
+        "Soil Dryness": data["soil_dryness"]
       };
     } else {
       return { error: "Error in getting Berry" };

@@ -1,6 +1,7 @@
 import React from "react";
 import { getPokemonWithID } from "./network";
 import Page404 from "./404";
+import Media from "./Media";
 class Pokemon extends React.Component {
   constructor(props) {
     super(props);
@@ -46,17 +47,7 @@ class Pokemon extends React.Component {
         return <Page404 />;
       } else {
         if (pokemonData) {
-          return (
-            <ul>
-              {Object.keys(pokemonData).map(key => {
-                return (
-                  <li key={key}>
-                    {key}: {pokemonData[key]}
-                  </li>
-                );
-              })}
-            </ul>
-          );
+          return <Media data={pokemonData} />;
         } else {
           return <Page404 />;
         }

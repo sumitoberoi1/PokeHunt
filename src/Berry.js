@@ -1,6 +1,7 @@
 import React from "react";
 import { getBerryWithID } from "./network";
 import Page404 from "./404";
+import Media from "./Media";
 class Berry extends React.Component {
   constructor(props) {
     super(props);
@@ -46,17 +47,7 @@ class Berry extends React.Component {
         return <Page404 />;
       } else {
         if (berryData) {
-          return (
-            <ul>
-              {Object.keys(berryData).map(key => {
-                return (
-                  <li key={key}>
-                    {key}: {berryData[key]}
-                  </li>
-                );
-              })}
-            </ul>
-          );
+          return <Media data={berryData} />;
         } else {
           return <Page404 />;
         }

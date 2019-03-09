@@ -1,6 +1,7 @@
 import React from "react";
 import { getMachineWithID } from "./network";
 import Page404 from "./404";
+import Media from "./Media";
 class Machine extends React.Component {
   constructor(props) {
     super(props);
@@ -46,17 +47,7 @@ class Machine extends React.Component {
         return <Page404 />;
       } else {
         if (machineData) {
-          return (
-            <ul>
-              {Object.keys(machineData).map(key => {
-                return (
-                  <li key={key}>
-                    {key}: {machineData[key]}
-                  </li>
-                );
-              })}
-            </ul>
-          );
+          return <Media data={machineData} />;
         } else {
           return <Page404 />;
         }

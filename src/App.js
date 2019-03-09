@@ -8,6 +8,7 @@ import Berries from "./Berries";
 import Berry from "./Berry";
 import Machines from "./Machines";
 import Machine from "./Machine";
+import Page404 from "./404";
 
 class App extends React.Component {
   render() {
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Berries path="/berries/page/:id" />
           <Machines path="/machines/page/:id" />
           <Machine path="/machines/:id" />
+          <Page404 default />
         </Router>
       </div>
     );

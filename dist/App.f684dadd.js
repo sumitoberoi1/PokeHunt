@@ -31149,7 +31149,11 @@ function _getPokemonWithID() {
                   return acc;
                 }
               }),
-              "Base Experience": data["base_experience"]
+              "Base Experience": data["base_experience"],
+              image: data["sprites"] && data["sprites"]["front_default"],
+              name: data["name"],
+              Height: data["height"],
+              Weight: data["weight"]
             });
 
           case 10:
@@ -31207,7 +31211,13 @@ function _getBerryWithID() {
 
             return _context5.abrupt("return", {
               Item: data["item"] && data["item"]["name"],
-              "Growth Time": data["growth_time"]
+              "Growth Time": data["growth_time"],
+              "Max Harvest": data["max_harvest"],
+              name: data["name"],
+              "Natural Gift Power": data["natural_gift_power"],
+              Size: data["size"],
+              Smoothness: data["smoothness"],
+              "Soil Dryness": data["soil_dryness"]
             });
 
           case 10:
@@ -31335,7 +31345,11 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Page404 = function Page404() {
-  return _react.default.createElement("p", null, "Not Found");
+  return _react.default.createElement("div", {
+    className: "container text-center"
+  }, _react.default.createElement("p", {
+    className: "text-danger"
+  }, "Not Found"));
 };
 
 var _default = Page404;
@@ -31617,7 +31631,49 @@ function (_React$Component) {
 
 var _default = Pokemons;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/objectSpread":"node_modules/@babel/runtime/helpers/objectSpread.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","@reach/router":"node_modules/@reach/router/es/index.js","./Card":"src/Card.js","./404":"src/404.js","./Pagination":"src/Pagination.js"}],"src/Pokemon.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/objectSpread":"node_modules/@babel/runtime/helpers/objectSpread.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","@reach/router":"node_modules/@reach/router/es/index.js","./Card":"src/Card.js","./404":"src/404.js","./Pagination":"src/Pagination.js"}],"src/Media.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Media = function Media(props) {
+  var data = props.data;
+  return _react.default.createElement("div", {
+    className: "media container"
+  }, data.image && _react.default.createElement("img", {
+    className: "d-flex mr-3",
+    src: data.image,
+    alt: "Generic placeholder image"
+  }), _react.default.createElement("div", {
+    className: "media-body"
+  }, data["name"] && _react.default.createElement("h2", {
+    className: "text-capitalize"
+  }, data["name"]), _react.default.createElement("ul", {
+    className: "list-group"
+  }, Object.keys(data).map(function (key) {
+    if (key === "name" || key === "image") {
+      return;
+    }
+
+    return _react.default.createElement("li", {
+      className: "list-group-item",
+      key: key
+    }, _react.default.createElement("span", {
+      className: "font-weight-bold"
+    }, key), ": ", data[key]);
+  }))));
+};
+
+var _default = Media;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/Pokemon.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31644,6 +31700,8 @@ var _react = _interopRequireDefault(require("react"));
 var _network = require("./network");
 
 var _ = _interopRequireDefault(require("./404"));
+
+var _Media = _interopRequireDefault(require("./Media"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31753,11 +31811,9 @@ function (_React$Component) {
           return _react.default.createElement(_.default, null);
         } else {
           if (pokemonData) {
-            return _react.default.createElement("ul", null, Object.keys(pokemonData).map(function (key) {
-              return _react.default.createElement("li", {
-                key: key
-              }, key, ": ", pokemonData[key]);
-            }));
+            return _react.default.createElement(_Media.default, {
+              data: pokemonData
+            });
           } else {
             return _react.default.createElement(_.default, null);
           }
@@ -31770,7 +31826,7 @@ function (_React$Component) {
 
 var _default = Pokemon;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","./404":"src/404.js"}],"src/Berries.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","./404":"src/404.js","./Media":"src/Media.js"}],"src/Berries.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32025,6 +32081,8 @@ var _network = require("./network");
 
 var _ = _interopRequireDefault(require("./404"));
 
+var _Media = _interopRequireDefault(require("./Media"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Berry =
@@ -32133,11 +32191,9 @@ function (_React$Component) {
           return _react.default.createElement(_.default, null);
         } else {
           if (berryData) {
-            return _react.default.createElement("ul", null, Object.keys(berryData).map(function (key) {
-              return _react.default.createElement("li", {
-                key: key
-              }, key, ": ", berryData[key]);
-            }));
+            return _react.default.createElement(_Media.default, {
+              data: berryData
+            });
           } else {
             return _react.default.createElement(_.default, null);
           }
@@ -32150,7 +32206,7 @@ function (_React$Component) {
 
 var _default = Berry;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","./404":"src/404.js"}],"src/Machines.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","./404":"src/404.js","./Media":"src/Media.js"}],"src/Machines.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32405,6 +32461,8 @@ var _network = require("./network");
 
 var _ = _interopRequireDefault(require("./404"));
 
+var _Media = _interopRequireDefault(require("./Media"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Machine =
@@ -32513,11 +32571,9 @@ function (_React$Component) {
           return _react.default.createElement(_.default, null);
         } else {
           if (machineData) {
-            return _react.default.createElement("ul", null, Object.keys(machineData).map(function (key) {
-              return _react.default.createElement("li", {
-                key: key
-              }, key, ": ", machineData[key]);
-            }));
+            return _react.default.createElement(_Media.default, {
+              data: machineData
+            });
           } else {
             return _react.default.createElement(_.default, null);
           }
@@ -32530,7 +32586,7 @@ function (_React$Component) {
 
 var _default = Machine;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","./404":"src/404.js"}],"src/App.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","./404":"src/404.js","./Media":"src/Media.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
@@ -32562,6 +32618,8 @@ var _Berry = _interopRequireDefault(require("./Berry"));
 var _Machines = _interopRequireDefault(require("./Machines"));
 
 var _Machine = _interopRequireDefault(require("./Machine"));
+
+var _ = _interopRequireDefault(require("./404"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32600,6 +32658,8 @@ function (_React$Component) {
         path: "/machines/page/:id"
       }), _react.default.createElement(_Machine.default, {
         path: "/machines/:id"
+      }), _react.default.createElement(_.default, {
+        default: true
       })));
     }
   }]);
@@ -32607,7 +32667,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 (0, _reactDom.render)(_react.default.createElement(App, null), document.getElementById("root"));
-},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","@reach/router":"node_modules/@reach/router/es/index.js","./Home":"src/Home.js","./Pokemons":"src/Pokemons.js","./Pokemon":"src/Pokemon.js","./Berries":"src/Berries.js","./Berry":"src/Berry.js","./Machines":"src/Machines.js","./Machine":"src/Machine.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","@reach/router":"node_modules/@reach/router/es/index.js","./Home":"src/Home.js","./Pokemons":"src/Pokemons.js","./Pokemon":"src/Pokemon.js","./Berries":"src/Berries.js","./Berry":"src/Berry.js","./Machines":"src/Machines.js","./Machine":"src/Machine.js","./404":"src/404.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
