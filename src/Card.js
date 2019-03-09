@@ -8,7 +8,9 @@ const Card = props => {
         {props.name && (
           <h2 className="card-title text-capitalize">{props.name}</h2>
         )}
-        <Link to={props.url}>{props.name ? `More info` : props.url}</Link>
+        {(props.name || props.link) && (
+          <Link to={props.url}>{props.name ? `More info` : props.link}</Link>
+        )}
       </div>
     </div>
   );

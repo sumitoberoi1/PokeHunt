@@ -31315,9 +31315,9 @@ var Card = function Card(props) {
     className: "card-body"
   }, props.name && _react.default.createElement("h2", {
     className: "card-title text-capitalize"
-  }, props.name), _react.default.createElement(_router.Link, {
+  }, props.name), (props.name || props.link) && _react.default.createElement(_router.Link, {
     to: props.url
-  }, props.name ? "More info" : props.url)));
+  }, props.name ? "More info" : props.link)));
 };
 
 var _default = Card;
@@ -31804,6 +31804,10 @@ var _router = require("@reach/router");
 
 var _ = _interopRequireDefault(require("./404"));
 
+var _Card = _interopRequireDefault(require("./Card"));
+
+var _Pagination = _interopRequireDefault(require("./Pagination"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Berries =
@@ -31969,19 +31973,22 @@ function (_React$Component) {
       if (berries.length === 0) {
         return _react.default.createElement(_.default, null);
       } else {
-        return _react.default.createElement(_react.default.Fragment, null, berries.map(function (berry) {
+        return _react.default.createElement("div", {
+          className: "container"
+        }, berries.map(function (berry) {
           var berryStringToArray = berry.url.split("/");
           var berryID = berryStringToArray[berryStringToArray.length - 2];
-          return _react.default.createElement("div", {
-            key: berryID
-          }, _react.default.createElement(_router.Link, {
-            to: "/berries/".concat(berryID)
-          }, berry.name));
-        }), page !== 0 && _react.default.createElement("button", {
-          onClick: this.prevButtonTapped
-        }, "Prev"), _react.default.createElement("span", null, page), page < numberOfPages && _react.default.createElement("button", {
-          onClick: this.nextButtonTapped
-        }, "Next"));
+          return _react.default.createElement(_Card.default, {
+            key: berryID,
+            name: berry.name,
+            url: "/berries/".concat(berryID)
+          });
+        }), _react.default.createElement(_Pagination.default, {
+          page: page,
+          prevButtonTapped: this.prevButtonTapped,
+          numberOfPages: numberOfPages,
+          nextButtonTapped: this.nextButtonTapped
+        }));
       }
     }
   }]);
@@ -31990,7 +31997,7 @@ function (_React$Component) {
 
 var _default = Berries;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/objectSpread":"node_modules/@babel/runtime/helpers/objectSpread.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","@reach/router":"node_modules/@reach/router/es/index.js","./404":"src/404.js"}],"src/Berry.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/objectSpread":"node_modules/@babel/runtime/helpers/objectSpread.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","@reach/router":"node_modules/@reach/router/es/index.js","./404":"src/404.js","./Card":"src/Card.js","./Pagination":"src/Pagination.js"}],"src/Berry.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32177,6 +32184,10 @@ var _router = require("@reach/router");
 
 var _ = _interopRequireDefault(require("./404"));
 
+var _Card = _interopRequireDefault(require("./Card"));
+
+var _Pagination = _interopRequireDefault(require("./Pagination"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Machines =
@@ -32342,19 +32353,22 @@ function (_React$Component) {
       if (machines.length === 0) {
         return _react.default.createElement(_.default, null);
       } else {
-        return _react.default.createElement(_react.default.Fragment, null, machines.map(function (machine) {
+        return _react.default.createElement("div", {
+          className: "container"
+        }, machines.map(function (machine) {
           var machineStringToArray = machine.url.split("/");
           var machineID = machineStringToArray[machineStringToArray.length - 2];
-          return _react.default.createElement("div", {
-            key: machineID
-          }, _react.default.createElement(_router.Link, {
-            to: "/machines/".concat(machineID)
-          }, machine.url));
-        }), page !== 0 && _react.default.createElement("button", {
-          onClick: this.prevButtonTapped
-        }, "Prev"), _react.default.createElement("span", null, page), page < numberOfPages && _react.default.createElement("button", {
-          onClick: this.nextButtonTapped
-        }, "Next"));
+          return _react.default.createElement(_Card.default, {
+            key: machineID,
+            link: machine.url,
+            url: "/machines/".concat(machineID)
+          });
+        }), _react.default.createElement(_Pagination.default, {
+          page: page,
+          prevButtonTapped: this.prevButtonTapped,
+          numberOfPages: numberOfPages,
+          nextButtonTapped: this.nextButtonTapped
+        }));
       }
     }
   }]);
@@ -32363,7 +32377,7 @@ function (_React$Component) {
 
 var _default = Machines;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/objectSpread":"node_modules/@babel/runtime/helpers/objectSpread.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","@reach/router":"node_modules/@reach/router/es/index.js","./404":"src/404.js"}],"src/Machine.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/objectSpread":"node_modules/@babel/runtime/helpers/objectSpread.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","./network":"src/network.js","@reach/router":"node_modules/@reach/router/es/index.js","./404":"src/404.js","./Card":"src/Card.js","./Pagination":"src/Pagination.js"}],"src/Machine.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

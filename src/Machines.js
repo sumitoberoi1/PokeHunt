@@ -2,7 +2,8 @@ import React from "react";
 import { getMachinesforPage } from "./network";
 import { Link, navigate } from "@reach/router";
 import Page404 from "./404";
-
+import Card from "./Card";
+import Pagination from "./Pagination";
 class Machines extends React.Component {
   constructor(props) {
     super(props);
@@ -56,23 +57,26 @@ class Machines extends React.Component {
       return <Page404 />;
     } else {
       return (
-        <React.Fragment>
+        <div className="container">
           {machines.map(machine => {
             const machineStringToArray = machine.url.split("/");
             const machineID =
               machineStringToArray[machineStringToArray.length - 2];
             return (
-              <div key={machineID}>
-                <Link to={`/machines/${machineID}`}>{machine.url}</Link>
-              </div>
+              <Card
+                key={machineID}
+                link={machine.url}
+                url={`/machines/${machineID}`}
+              />
             );
           })}
-          {page !== 0 && <button onClick={this.prevButtonTapped}>Prev</button>}
-          <span>{page}</span>
-          {page < numberOfPages && (
-            <button onClick={this.nextButtonTapped}>Next</button>
-          )}
-        </React.Fragment>
+          <Pagination
+            page={page}
+            prevButtonTapped={this.prevButtonTapped}
+            numberOfPages={numberOfPages}
+            nextButtonTapped={this.nextButtonTapped}
+          />
+        </div>
       );
     }
   }

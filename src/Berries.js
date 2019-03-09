@@ -2,6 +2,8 @@ import React from "react";
 import { getBerriesForPage } from "./network";
 import { Link, navigate } from "@reach/router";
 import Page404 from "./404";
+import Card from "./Card";
+import Pagination from "./Pagination";
 
 class Berries extends React.Component {
   constructor(props) {
@@ -56,22 +58,25 @@ class Berries extends React.Component {
       return <Page404 />;
     } else {
       return (
-        <React.Fragment>
+        <div className="container">
           {berries.map(berry => {
             const berryStringToArray = berry.url.split("/");
             const berryID = berryStringToArray[berryStringToArray.length - 2];
             return (
-              <div key={berryID}>
-                <Link to={`/berries/${berryID}`}>{berry.name}</Link>
-              </div>
+              <Card
+                key={berryID}
+                name={berry.name}
+                url={`/berries/${berryID}`}
+              />
             );
           })}
-          {page !== 0 && <button onClick={this.prevButtonTapped}>Prev</button>}
-          <span>{page}</span>
-          {page < numberOfPages && (
-            <button onClick={this.nextButtonTapped}>Next</button>
-          )}
-        </React.Fragment>
+          <Pagination
+            page={page}
+            prevButtonTapped={this.prevButtonTapped}
+            numberOfPages={numberOfPages}
+            nextButtonTapped={this.nextButtonTapped}
+          />
+        </div>
       );
     }
   }
