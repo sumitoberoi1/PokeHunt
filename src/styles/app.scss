@@ -1,0 +1,18 @@
+@import "variables.scss";
+@import "_customVariables";
+
+a:hover {
+  text-decoration: none;
+}
+
+body {
+  background-color: #ebebeb;
+}
+
+.nav-link {
+  color: #c43800;
+}
+
+.jumbotron {
+  background-color: #ebebeb;
+}
